@@ -9,7 +9,84 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      loan_applications: {
+        Row: {
+          credit_score: number
+          email: string
+          employment_status: string
+          full_name: string
+          id: string
+          loan_amount: number
+          monthly_income: number
+          phone_number: string
+          purpose: string
+          status: string
+          submitted_at: string
+          user_id: string
+        }
+        Insert: {
+          credit_score: number
+          email: string
+          employment_status: string
+          full_name: string
+          id?: string
+          loan_amount: number
+          monthly_income: number
+          phone_number: string
+          purpose: string
+          status?: string
+          submitted_at?: string
+          user_id: string
+        }
+        Update: {
+          credit_score?: number
+          email?: string
+          employment_status?: string
+          full_name?: string
+          id?: string
+          loan_amount?: number
+          monthly_income?: number
+          phone_number?: string
+          purpose?: string
+          status?: string
+          submitted_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      loan_stats: {
+        Row: {
+          approved_amount: number
+          approved_applications: number
+          avg_loan_amount: number
+          pending_applications: number
+          rejected_applications: number
+          total_amount: number
+          total_applications: number
+          user_id: string
+        }
+        Insert: {
+          approved_amount?: number
+          approved_applications?: number
+          avg_loan_amount?: number
+          pending_applications?: number
+          rejected_applications?: number
+          total_amount?: number
+          total_applications?: number
+          user_id: string
+        }
+        Update: {
+          approved_amount?: number
+          approved_applications?: number
+          avg_loan_amount?: number
+          pending_applications?: number
+          rejected_applications?: number
+          total_amount?: number
+          total_applications?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

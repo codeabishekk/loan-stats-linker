@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,15 +63,12 @@ const ApplicationForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const applicationId = addApplication(values);
+      const applicationId = await addApplication(values);
       
       toast.success("Application submitted successfully!");
       navigate(`/applications/${applicationId}`);
-    } catch (error) {
-      toast.error("Failed to submit application. Please try again.");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to submit application. Please try again.");
       console.error("Application submission error:", error);
     } finally {
       setIsSubmitting(false);

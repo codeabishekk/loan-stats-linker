@@ -1,12 +1,26 @@
 
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Menu, Bell, Search, User } from "lucide-react";
+import { Menu, Bell, Search, User, LogOut } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const DashboardHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Signed out successfully");
+      navigate("/auth");
+    } catch (error) {
+      toast.error("Failed to sign out");
+    }
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
@@ -50,8 +64,19 @@ const DashboardHeader = () => {
           <Button variant="ghost" size="icon" className="text-gray-600">
             <Bell className="h-5 w-5" />
           </Button>
-          <Button variant="ghost" size="icon" className="ml-2 text-gray-600">
-            <User className="h-5 w-5" />
+          <div className="relative ml-2">
+            <Button variant="ghost" size="icon" className="text-gray-600">
+              <User className="h-5 w-5" />
+            </Button>
+          </div>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="ml-2 text-gray-600"
+            onClick={handleSignOut}
+            title="Sign Out"
+          >
+            <LogOut className="h-5 w-5" />
           </Button>
         </div>
       </div>
@@ -80,6 +105,14 @@ const DashboardHeader = () => {
             >
               New Application
             </Link>
+            <Button 
+              variant="ghost" 
+              className="justify-start text-gray-700 hover:text-red-600 px-2 py-1"
+              onClick={handleSignOut}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
           </nav>
         </div>
       )}
